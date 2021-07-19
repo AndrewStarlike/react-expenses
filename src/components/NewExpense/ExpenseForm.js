@@ -3,52 +3,58 @@ import "./ExpenseForm.css";
 
 const ExpenseForm = () => {
   const [userInput, setUserInput] = useState({
-    enteredTitle: "",
-    enteredAmount: "",
-    entereredDate: "",
+    title: "",
+    amount: "",
+    date: "",
   });
 
-  const titleChangeHandler = (event) => {
+  const handleInputChange = (event) => {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
     setUserInput((previousState) => {
-      return { ...previousState, enteredTitle: event.target.value };
+      return { ...previousState, [name]: value };
     });
   };
 
-  const amountChangeHandler = (event) => {
-    setUserInput((previousState) => {
-      return { ...previousState, enteredAmount: event.target.value };
-    });
-  };
+  const submitHandler = (event) => {
+    event.preventDefault();
 
-  const dateChangeHandler = (event) => {
-    setUserInput((previousState) => {
-      return { ...previousState, entereredDate: event.target.value };
-    });
+    const expenseData = {
+      title: userInput.title,
+      amount: userInput.amount,
+      date: new Date(userInput.date),
+    };
+
+    console.log(expenseData);
   };
 
   return (
-    <form>
+    <form onSubmit={submitHandler}>
       <div className="new-expense__controls">
         <div className="new-expense__control">
           <label>Title</label>
-          <input type="text" onChange={titleChangeHandler} />
+          <input type="text" name="title" onChange={handleInputChange} />
         </div>
         <div className="new-expense__control">
           <label>Amount</label>
           <input
             type="amount"
+            name="amount"
             min="0.01"
             step="0.01"
-            onChange={amountChangeHandler}
+            onChange={handleInputChange}
           />
         </div>
         <div className="new-expense__control">
           <label>Date</label>
           <input
             type="date"
+            name="date"
             min="2019-01-01"
             max="2022-12-31"
-            onChange={dateChangeHandler}
+            onChange={handleInputChange}
           />
         </div>
       </div>
