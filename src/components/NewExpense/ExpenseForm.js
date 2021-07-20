@@ -12,7 +12,12 @@ const ExpenseForm = (props) => {
   const handleInputChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value = name === "date" ? new Date(target.value) : target.value;
+    const value =
+      name === "date"
+        ? new Date(target.value)
+        : name === "amount"
+        ? +target.value
+        : target.value;
 
     setUserInput((previousState) => {
       return { ...previousState, [name]: value };
