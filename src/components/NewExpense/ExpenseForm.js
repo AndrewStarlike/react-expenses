@@ -6,12 +6,16 @@ const ExpenseForm = (props) => {
     title: "",
     amount: "",
     date: "",
+    id: Math.random(),
   });
 
   const handleInputChange = (event) => {
     const target = event.target;
-    const value = target.value;
     const name = target.name;
+    const value =
+      name === "date"
+        ? new Date(target.value)
+        : target.value;
 
     setUserInput((previousState) => {
       return { ...previousState, [name]: value };
@@ -27,6 +31,7 @@ const ExpenseForm = (props) => {
       title: "",
       amount: "",
       date: "",
+      id: "",
     });
   };
 
@@ -58,7 +63,7 @@ const ExpenseForm = (props) => {
           <input
             type="date"
             name="date"
-            value={userInput.date}
+            value={userInput.date ? userInput.date.toISOString().slice(0, 10) : ""}
             min="2019-01-01"
             max="2022-12-31"
             onChange={handleInputChange}
