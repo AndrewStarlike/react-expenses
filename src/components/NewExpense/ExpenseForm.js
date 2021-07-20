@@ -12,10 +12,7 @@ const ExpenseForm = (props) => {
   const handleInputChange = (event) => {
     const target = event.target;
     const name = target.name;
-    const value =
-      name === "date"
-        ? new Date(target.value)
-        : target.value;
+    const value = name === "date" ? new Date(target.value) : target.value;
 
     setUserInput((previousState) => {
       return { ...previousState, [name]: value };
@@ -63,7 +60,9 @@ const ExpenseForm = (props) => {
           <input
             type="date"
             name="date"
-            value={userInput.date ? userInput.date.toISOString().slice(0, 10) : ""}
+            value={
+              userInput.date ? userInput.date.toISOString().slice(0, 10) : ""
+            }
             min="2019-01-01"
             max="2022-12-31"
             onChange={handleInputChange}
@@ -71,6 +70,9 @@ const ExpenseForm = (props) => {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={props.onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
